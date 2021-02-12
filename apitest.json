@@ -1,0 +1,432 @@
+{
+	"info": {
+		"_postman_id": "926fc233-989f-4ea5-862e-7daea67f9847",
+		"name": "REQRESAPITEST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET METHODS",
+			"item": [
+				{
+					"name": "GET ALL USERS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData=pm.response.json();\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Validate Content type \", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"pm.test(\"Validate object data keys\", function () {\r",
+									"    pm.expect(responseData.page).to.eql(1);\r",
+									"    pm.expect(responseData.per_page).to.eql(6);\r",
+									"    pm.expect(responseData.total).to.eql(12);\r",
+									"    pm.expect(responseData.total_pages).to.eql(2);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "id",
+								"value": "2",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseuri}}/users",
+							"host": [
+								"{{baseuri}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SINGLE USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData=pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Validate Content type \", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-type\")).to.eql(\"application/json; charset=utf-8\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"Validate ID\", function () {\r",
+									"    pm.expect(responseData.data.id).to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Validte Email\",function(){\r",
+									"    pm.expect(responseData.data.email).to.eql(\"janet.weaver@reqres.in\");\r",
+									"});\r",
+									"pm.test(\"Validate first name\",function(){\r",
+									"     pm.expect(responseData.data.first_name).to.eql(\"Janet\");\r",
+									"});\r",
+									"pm.test(\"Validate last name\",function(){\r",
+									"     pm.expect(responseData.data.last_name).to.eql(\"Weaver\");\r",
+									"});\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body(responseData);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//application/json; charset=utf-8\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "id",
+								"value": "3",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseuri}}/users/2",
+							"host": [
+								"{{baseuri}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET NOT EXIST USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var reponseData=pm.response.json();\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Status code name has Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseuri}}/users/23",
+							"host": [
+								"{{baseuri}}"
+							],
+							"path": [
+								"users",
+								"23"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST METHODS",
+			"item": [
+				{
+					"name": "CREATE USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData=pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Validate Content type \", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-type\")).to.eql(\"application/json; charset=utf-8\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"pm.test(\"Validate Name\",function(){\r",
+									"    pm.expect(responseData.name).to.eql(pm.variables.get(\"name\"));\r",
+									"});\r",
+									"pm.test(\"Validate job\",function(){\r",
+									"    pm.expect(responseData.job).to.eql(pm.variables.get(\"job\"));\r",
+									"})\r",
+									"pm.test(\"Validate ID\",function(){\r",
+									"    pm.expect(responseData.id).to.eql(pm.variables.get(\"id\"));\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var randomName=\"adam\"+Math.random().toString(36).substr(2, 5);\r",
+									"pm.variables.set(\"name\", randomName);\r",
+									"var randomJob=\"dev\"+Math.random().toString(36).substr(4, 8);\r",
+									"pm.variables.set(\"job\", randomJob);\r",
+									"var randomId=Math.floor(Math.random()*200)+100;\r",
+									"pm.variables.set(\"id\",randomId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"{{name}}\",\r\n    \"job\":\"{{job}}\",\r\n    \"id\":{{id}},\r\n    \"support\":\"not\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseuri}}/users",
+							"host": [
+								"{{baseuri}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REGISTER SUCCESSFULLY",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"password22332\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseuri}}/register",
+							"host": [
+								"{{baseuri}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT METHODS",
+			"item": [
+				{
+					"name": "UPDATE USER INFO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jacob\",\r\n    \"job\": \"uber driver\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseuri}}/users/2",
+							"host": [
+								"{{baseuri}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PATCH METHODS",
+			"item": [
+				{
+					"name": "UPDATE PART OF THE OBJECT",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "id",
+								"value": "1",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sarah\",\r\n    \"job\": \"west hollywood resident\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseuri}}/users/1",
+							"host": [
+								"{{baseuri}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE METHODS",
+			"item": [
+				{
+					"name": "DELETE USER",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseuri}}/users/1",
+							"host": [
+								"{{baseuri}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseuri",
+			"value": "https://reqres.in/api"
+		},
+		{
+			"key": "name",
+			"value": "adam"
+		},
+		{
+			"key": "job",
+			"value": "developer"
+		},
+		{
+			"key": "id",
+			"value": "1231"
+		}
+	]
+}
